@@ -1,25 +1,26 @@
----
 language: node_js
 node_js:
-  - "4"
-
+- '4'
 sudo: false
-
 cache:
   directories:
-    - $HOME/.npm
-    - $HOME/.cache # includes bowers cache
-
+  - $HOME/.npm
+  - $HOME/.cache
 before_install:
-  - npm config set spin false
-  - npm install -g bower
-  - bower --version
-  - npm install phantomjs-prebuilt
-  - node_modules/phantomjs-prebuilt/bin/phantomjs --version
-
+- npm config set spin false
+- npm install -g bower
+- bower --version
+- npm install phantomjs-prebuilt
+- node_modules/phantomjs-prebuilt/bin/phantomjs --version
 install:
-  - npm install
-  - bower install
-
+- npm install
+- bower install
 script:
-  - npm test
+- npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: f0cWYCjIEOCi4S3Z77LbroOUYbA/t6VIAJaSC4HmpZP1ZcPPTLNltTxte0FXmECg8tSdBHNGBQraUkNZ+La0k3+4BiVAG+KS2GRjCH+CdDaH8ldxF1xJfkvk1JAPJDOLteMBIe0eoV935Q2Go3X8R5JNozU+FwX8gpqfRZTZsGmUAPEvBlSKyQ/yY/dNR6EWr/5zOukvKYWoyyQzE+Z4zlt+gN1WeqZYNX28c5D8Gcr/br61gbG8qUp0aG2xS9zxd9i8Y6QN5Rfmn432orYnjz5gQze8KXmfGsgxOY8KGeQd3Hx1H/kaULPjCuYf2AFwZF3n0AXdaMgrgOyiAmdRBpjHI4jMvRTwcKW+9waheo7hkLXa5Ni+flCwtHOxhWSnXJ90uMuG0BzLEJ3i7KC0DBKv8GXfw6nJc9wMqyqObWGExK/fGNPteMYybLOn6ptbhMvXcWjHxsw9EjcbIKwnYtmaHfkiXOj6wM7Ue/8efitSi7ls2eckP7pL8b3UpbtiYtxwwm8pyfh+RbuagguhmxD4O8lUOjjgGLp9yyWvJVCPnHmD14pvPbMS2o/t+014hIBoof/3WyNSx0ktnWNossw5gOb2r8jQNAeFeCU9bfqnYvlyyrf332b4qlY8sMJhtSDDqNgzipMjBuSMg/LlqNiJxfYmAmPG1CbbPxHj/ck=
+  app: pure-escarpment-53002
+  on:
+    repo: mize85/peep
