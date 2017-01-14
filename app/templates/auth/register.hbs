@@ -1,0 +1,24 @@
+{{#paper-content flex=true scroll-y=true layout-padding=true}}
+    {{#doc-content}}
+        {{#paper-form onSubmit=(action "register") as |form|}}
+            <form {{action form.onSubmit on="submit"}}>
+                <div class="layout-row">
+                    <div class="layout-column flex-50">
+                        {{form.input label="Username" value=identification onChange=(action (mut identification))}}
+                        {{form.input label="Password" type="password" value=password onChange=(action (mut password))}}
+                        {{form.input label="Password Confirmation" type="password" value=passwordConfirmation onChange=(action (mut passwordConfirmation))}}
+                    </div>
+                </div>
+                <div class="layout-row">
+                    {{#form.submit-button type="submit" raised=true primary=true}}Register{{/form.submit-button}}
+                </div>
+
+                {{#if errors}}
+                    {{#each errors.non_field_errors as |e|}}
+                        <p> {{e}} </p>
+                    {{/each}}
+                {{/if}}
+            </form>
+        {{/paper-form}}
+    {{/doc-content}}
+{{/paper-content}}

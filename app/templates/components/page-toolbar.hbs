@@ -1,0 +1,33 @@
+{{#paper-toolbar class="md-whiteframe-1dp page-main-toolbar" as |toolbar|}}
+    {{#toolbar.tools}}
+        {{#paper-sidenav-toggle as |toggleAction|}}
+            {{#paper-button onClick=(action toggleAction) iconButton=true}}
+                {{paper-icon "menu"}}
+            {{/paper-button}}
+        {{/paper-sidenav-toggle}}
+        <h2>
+            {{pageTitle}}
+        </h2>
+        <span class="flex"></span>
+
+        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "users")}}
+            Users
+        {{/paper-button}}
+        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
+            Lorem
+        {{/paper-button}}
+        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
+            Ipsum
+        {{/paper-button}}
+        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
+            Dolor
+        {{/paper-button}}
+        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
+            Sit
+        {{/paper-button}}
+        {{#paper-button iconButton=true}}
+            {{paper-icon "more_vert"}}
+        {{/paper-button}}
+
+    {{/toolbar.tools}}
+{{/paper-toolbar}}
