@@ -1,13 +1,19 @@
 import Ember from "ember";
 
-export default Ember.Route.extend({
+const {Route, inject} = Ember;
+
+export default Route.extend({
+
+  flashMessages: inject.service(),
 
   actions: {
     doRegister() {
+      const flashMessages = this.get('flashMessages');
+
       this.get('currentModel').save()
         .then(() => {
           this.transitionTo('auth.login');
-          this.get('flashMessages').success('Registered sucessfully!');
+          flashMessages.success('Registered sucessfully!');
 
         }).catch((response) => {
 
@@ -17,13 +23,13 @@ export default Ember.Route.extend({
         if (errors.mapBy('code').indexOf(401) >= 0) {
 
           // Unauthorized
-          this.get('flashMessages')
+          flashMessages
             .danger('There was a problem with your username or password, please try again');
 
         } else {
 
           // All other API errors
-          this.get('flashMessages').danger('Server Error');
+          flashMessages.danger('Server Error');
 
         }
       });

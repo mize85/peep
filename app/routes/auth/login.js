@@ -18,7 +18,7 @@ export default Route.extend({
         ).then(() => {
 
         // Successful Login
-        this.get('flashMessages').success('Logged in!');
+        flashMessages.success('Logged in!');
 
       }).catch((response) => {
 
@@ -28,13 +28,12 @@ export default Route.extend({
         if (errors.mapBy('code').indexOf(401) >= 0) {
 
           // Unauthorized
-          this.get('flashMessages')
-            .danger('There was a problem with your username or password, please try again');
+          flashMessages.danger('There was a problem with your username or password, please try again');
 
         } else {
 
           // All other API errors
-          this.get('flashMessages').danger('Server Error');
+          flashMessages.danger('Server Error');
 
         }
       });
