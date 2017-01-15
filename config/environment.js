@@ -1,6 +1,6 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   var ENV = {
     modulePrefix: 'peep',
     environment: environment,
@@ -15,6 +15,17 @@ module.exports = function(environment) {
         // Prevent Ember Data from overriding Date.parse.
         Date: false
       }
+    },
+
+    'ember-simple-auth': {
+      authenticationRoute: 'auth.login',
+      routeIfAlreadyAuthenticated: 'app.index',
+      routeAfterAuthentication: 'app.index'
+    },
+
+    DS: {
+      host: 'http://localhost:4000',
+      namespace: 'api'
     },
 
     APP: {
@@ -43,7 +54,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.DS.host = 'https://peaceful-journey-56522.herokuapp.com';
   }
 
   return ENV;

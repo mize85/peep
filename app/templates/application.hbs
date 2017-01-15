@@ -14,7 +14,7 @@
             {{#if session.isAuthenticated}}
                 {{#paper-list}}
                     {{#menu-item active=(is-active "users" currentRouteName) onClick=(transition-to "users")}}Users{{/menu-item}}
-                    {{#menu-item active=(is-active "index" currentRouteName) onClick=(action 'invalidateSession')}}Logout{{/menu-item}}
+                    {{#menu-item active=(is-active "index" currentRouteName) onClick=(route-action 'logout')}}Logout{{/menu-item}}
                 {{/paper-list}}
             {{else}}
                 {{#paper-list}}

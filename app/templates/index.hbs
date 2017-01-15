@@ -6,7 +6,18 @@
             {{/link-to}}
         </div>
 
-        <h1>Pi-Pa-Prototype</h1>
+
+        <p>This is an example of an
+            <a href="http://emberjs.com" target="_blank">Ember.js</a> app
+            with a
+            <a href="http://www.phoenixframework.org/" target="_blank">
+                Phoenix
+            </a> API.
+        </p>
+        {{link-to "Register" "auth.register"
+                  class="btn-flat green white-text btn-large"}}
+        {{link-to "Enter Chat" "app.index"
+                  class="btn-flat blue white-text btn-large right"}}
 
 
     {{/doc-content}}

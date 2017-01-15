@@ -12,6 +12,7 @@ Router.map(function() {
     this.route('register');
   });
   this.route('users');
+  this.route('app', function() {});
 });
 
 export default Router;
