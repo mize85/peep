@@ -1,12 +1,50 @@
-<div class="container">
-    <div class="row">
-        <div class="col s12 m8 offset-m2">
+{{#paper-content flex=true scroll-y=true layout-padding=true}}
+    {{#doc-content}}
 
 
-                {{#user-info as |u|}}
-                    Thanks for logging in <b>{{u.email}}</b>
-                {{/user-info}}
+        {{#user-info as |u|}}
+            Thanks for logging in <b>{{u.email}}</b>
+        {{/user-info}}
 
-        </div>
-    </div>
-</div>
+        {{#paper-card as |card|}}
+
+            {{#paper-list classNames="list-demo"}}
+                {{#paper-item class="md-2-line"}}
+                    <h4>Rooms</h4>
+                {{/paper-item}}
+                {{#each model.rooms as |room|}}
+                    {{#paper-item class="md-2-line"}}
+                        {{paper-icon "check-circle" class="green"}}
+                        <div class="md-list-item-text">
+                            <h3>{{room.name}}
+                                {{#paper-button iconButton=true onClick=(route-action 'removeRoom' room)}}
+                                    {{paper-icon "delete" class="red"}}
+                                {{/paper-button}}
+                            </h3>
+                            <p>Owner: {{room.owner.email}}</p>
+                        </div>
+
+
+                        {{paper-divider}}
+                    {{/paper-item}}
+                {{else}}
+                    {{#paper-item class="md-2-line"}}
+                        <h3>No rooms yet ☹️</h3>
+                    {{/paper-item}}
+                {{/each}}
+            {{/paper-list}}
+
+
+            {{#paper-form onSubmit=(action (route-action 'createRoom')) as |form|}}
+                <div class="layout-row  layout-align-space-between-center">
+                    {{paper-input class="flex-70" label="Room Name" value=model.newRoom.name
+                                  onChange=(action (mut model.newRoom.name)) errors=model.newRoom.errors}}
+
+                    {{#form.submit-button raised=true primary=true}} Create Room{{/form.submit-button}}
+                </div>
+            {{/paper-form}}
+
+        {{/paper-card}}
+
+    {{/doc-content}}
+{{/paper-content}}
