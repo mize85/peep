@@ -6,7 +6,10 @@ module('Unit | Helper | is active');
 
 // Replace this with your real tests.
 test('it works', function(assert) {
-  let result = isActive([42]);
-  assert.ok(result);
+  let result = isActive(['index', 'index']);
+  assert.equal(result, true);
+
+  result = isActive(['index', 'notIndex']);
+  assert.equal(result, false);
 });
 

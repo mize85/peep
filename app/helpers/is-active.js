@@ -1,8 +1,9 @@
 import Ember from 'ember';
-const { Helper } = Ember;
 
-export default Helper.extend({
-  compute([routeName, activeRoute]) {
-    return activeRoute === routeName;
-  }
-});
+export function isActive(params/*, hash*/) {
+
+  const [routeName, activeRoute] = params;
+  return activeRoute === routeName;
+}
+
+export default Ember.Helper.helper(isActive);
