@@ -14,10 +14,10 @@
                 Phoenix
             </a> API.
         </p>
-        {{link-to "Register" "auth.register"
-                  class="btn-flat green white-text btn-large"}}
-        {{link-to "Enter Chat" "app.index"
-                  class="btn-flat blue white-text btn-large right"}}
+        {{#paper-button onClick=(action (transition-to  "auth.register"))}}Register{{/paper-button}}
+
+        {{#paper-button onClick=(action (transition-to  "app.index")) raised=true primary=true}}
+            Enter Chat{{/paper-button}}
 
 
     {{/doc-content}}
