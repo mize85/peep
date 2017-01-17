@@ -1,14 +1,15 @@
+import Ember from "ember";
+import config from "../config/environment";
+import fetch from "ember-network/fetch";
 
-import Ember from 'ember';
-import config from '../config/environment';
-import fetch from 'ember-network/fetch';
-
-const { Route, inject } = Ember;
+const {Route, inject} = Ember;
 
 export default Route.extend({
   session: inject.service(),
+  phoenixSocket: inject.service(),
+
   beforeModel() {
-    if(!this.get('session').get('isAuthenticated')) {
+    if (!this.get('session').get('isAuthenticated')) {
       this.transitionTo('auth.login');
     }
   },
@@ -22,6 +23,22 @@ export default Route.extend({
       return raw.json().then((data) => {
         const currentUser = this.store.push(data);
         this.set('session.currentUser', currentUser);
+
+
+        const socketService = this.get('phoenixSocket');
+        const session = this.get('session');
+
+        const host = config.DS.host;
+
+        console.log(host);
+
+        const socket = socketService.connect('ws://localhost:4000', {token: session.get('data.authenticated.access_token')});
+
+        let room = socket.channel("rooms:lobby", {});
+        room.join().receive("ok", () => {
+          console.log("Welcome to Phoenix Chat!");
+        });
+        room.on( "new:message", msg => alert(msg) )
       });
     });
   }

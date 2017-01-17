@@ -14,7 +14,10 @@
                 {{/paper-item}}
                 {{#each model.rooms as |room|}}
                     {{#paper-item class="md-2-line"}}
-                        {{paper-icon "check-circle" class="green"}}
+                        {{#paper-button iconButton=true onClick=(transition-to 'app.room.index' room.id)}}
+                            {{paper-icon "check-circle" class="green"}}
+                        {{/paper-button}}
+
                         <div class="md-list-item-text">
                             <h3>{{room.name}}
                                 {{#paper-button iconButton=true onClick=(route-action 'removeRoom' room)}}

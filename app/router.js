@@ -12,7 +12,13 @@ Router.map(function() {
     this.route('register');
   });
   this.route('users');
-  this.route('app', function() {});
+
+  this.route('app', function() {
+    this.route('room', {
+      path: 'room/:room_id'
+    }, function() {});
+  });
+
 });
 
 export default Router;

@@ -1,0 +1,19 @@
+<div class="card room-card">
+    <div class="card-content">
+        {{!-- Scrollable area containing messages --}}
+        <div class="messages-container">
+            {{outlet}}
+        </div>
+    </div>
+    <div class="card-action">
+        {{!-- New message field --}}
+        {{paper-input
+                value=model.newMessage
+                onChange=(action (mut model.newMessage))
+                classNames="new-message-field"}}
+        <button class="btn-floating btn-large z-depth-0 send-button right"
+                onclick={{route-action 'sendMessage'}}>
+            <i class="material-icons">send</i>
+        </button>
+    </div>
+</div>
