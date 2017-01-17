@@ -9,3 +9,13 @@ $accent: 'pink';
 
 
 @import "pages/index";
+
+
+.card-action{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 48px;
+  width: 100%;
+  background-color: yellow;
+}

@@ -1,10 +1,7 @@
-<div class="card room-card">
-    <div class="card-content">
-        {{!-- Scrollable area containing messages --}}
-        <div class="messages-container">
-            {{outlet}}
-        </div>
-    </div>
+{{#paper-content flex=true scroll-y=true layout-padding=true}}
+    {{#doc-content}}
+        {{outlet}}
+    {{/doc-content}}
     <div class="card-action">
         {{!-- New message field --}}
         {{paper-input
@@ -16,4 +13,4 @@
             <i class="material-icons">send</i>
         </button>
     </div>
-</div>
+{{/paper-content}}

@@ -1,6 +1,6 @@
 import Ember from "ember";
-import config from "../config/environment";
 import fetch from "ember-network/fetch";
+import config from "../config/environment";
 
 const {Route, inject} = Ember;
 
@@ -25,6 +25,8 @@ export default Route.extend({
         this.set('session.currentUser', currentUser);
 
 
+        // setup socket
+
         const socketService = this.get('phoenixSocket');
         const session = this.get('session');
 
@@ -32,13 +34,7 @@ export default Route.extend({
 
         console.log(host);
 
-        const socket = socketService.connect('ws://localhost:4000', {token: session.get('data.authenticated.access_token')});
-
-        let room = socket.channel("rooms:lobby", {});
-        room.join().receive("ok", () => {
-          console.log("Welcome to Phoenix Chat!");
-        });
-        room.on( "new:message", msg => alert(msg) )
+        socketService.connect('ws://localhost:4000/socket', {token: session.get('data.authenticated.access_token')});
       });
     });
   }
