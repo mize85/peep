@@ -34,7 +34,7 @@ export default Route.extend({
 
         console.log(host);
 
-        socketService.connect('ws://localhost:4000/socket', {token: session.get('data.authenticated.access_token')});
+        socketService.connect('ws://localhost:4000/socket', {params: {guardian_token: session.get('data.authenticated.access_token')}});
       });
     });
   }

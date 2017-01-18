@@ -36,7 +36,7 @@ export default Ember.Route.extend({
     const socketService = this.get('phoenixSocket');
     const session = this.get('session');
 
-    let room = socketService.joinChannel(`room:${model.room.get('name')}`, {}, () => {console.log("joined room...")});
+    let room = socketService.joinChannel(`room:${model.room.get('name')}`, {}, (msg) => {console.log(msg)});
     room.on( "new:msg", msg => {
       console.log(msg);
       this.store.createRecord('message', {
