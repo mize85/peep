@@ -24,7 +24,8 @@ module.exports = function (environment) {
     },
 
     DS: {
-      host: 'http://localhost:4000',
+      protocol: 'http',
+      host: 'localhost:4000',
       namespace: 'api'
     },
 
@@ -54,7 +55,8 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV.DS.host = 'https://peaceful-journey-56522.herokuapp.com';
+    ENV.DS.protocol = 'https';
+    ENV.DS.host = 'peaceful-journey-56522.herokuapp.com';
   }
 
   return ENV;

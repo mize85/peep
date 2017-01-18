@@ -14,7 +14,7 @@ export default Route.extend({
     }
   },
   afterModel() {
-    return fetch(`${config.DS.host}/${config.DS.namespace}/user/current`, {
+    return fetch(`${config.DS.protocol}://${config.DS.host}/${config.DS.namespace}/user/current`, {
       type: 'GET',
       headers: {
         'Authorization': `Bearer ${this.get('session').get('session.content.authenticated.access_token')}`
@@ -24,17 +24,10 @@ export default Route.extend({
         const currentUser = this.store.push(data);
         this.set('session.currentUser', currentUser);
 
-
         // setup socket
-
         const socketService = this.get('phoenixSocket');
         const session = this.get('session');
-
-        const host = config.DS.host;
-
-        console.log(host);
-
-        socketService.connect('ws://localhost:4000/socket', {params: {guardian_token: session.get('data.authenticated.access_token')}});
+        socketService.connect(`ws://${config.DS.host}/socket`, {params: {guardian_token: session.get('data.authenticated.access_token')}});
       });
     });
   }

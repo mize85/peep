@@ -4,7 +4,7 @@ import config from '../config/environment';
 
 export default JSONAPIAdapter.extend(DataAdapterMixin, {
 
-  host: config.DS.host,
+  host: `${config.DS.protocol}://${config.DS.host}`,
   namespace: config.DS.namespace,
   authorizer: 'authorizer:application',
   coalesceFindRequests: true,
