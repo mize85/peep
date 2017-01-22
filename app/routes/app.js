@@ -3,7 +3,7 @@ import fetch from "ember-network/fetch";
 import config from "../config/environment";
 
 const {Route, inject} = Ember;
-const {DS: {protocol, host}} = config;
+const {DS: {protocol, host, namespace}} = config;
 
 export default Route.extend({
   session: inject.service(),
@@ -15,7 +15,7 @@ export default Route.extend({
     }
   },
   afterModel() {
-    return fetch(`${config.DS.protocol}://${config.DS.host}/${config.DS.namespace}/user/current`, {
+    return fetch(`${protocol}://${host}/${namespace}/user/current`, {
       type: 'GET',
       headers: {
         'Authorization': `Bearer ${this.get('session').get('session.content.authenticated.access_token')}`
