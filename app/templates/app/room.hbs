@@ -8,7 +8,7 @@
         {{#paper-form as |form|}}
             <form {{action (route-action "sendMessage") on="submit"}}>
                 <div class="layout-row">
-                    {{paper-input class="text-area" label="Message" onenter=(route-action 'sendMessage')
+                    {{input class="text-area" label="Message" onenter=(route-action 'sendMessage')
                                   value=model.newMessage onChange=(action (mut model.newMessage))}}
 
                     {{#form.submit-button type="submit" raised=true primary=true}}
