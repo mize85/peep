@@ -10,24 +10,16 @@
         </h2>
         <span class="flex"></span>
 
+        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
+            Home
+        {{/paper-button}}
+
         {{#paper-button class="hide show-gt-sm" onClick=(transition-to "users")}}
             Users
         {{/paper-button}}
-        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
-            Lorem
-        {{/paper-button}}
-        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
-            Ipsum
-        {{/paper-button}}
-        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
-            Dolor
-        {{/paper-button}}
-        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
-            Sit
-        {{/paper-button}}
-        {{#paper-button iconButton=true}}
-            {{paper-icon "more_vert"}}
-        {{/paper-button}}
 
+        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "app.index")}}
+            Rooms
+        {{/paper-button}}
     {{/toolbar.tools}}
 {{/paper-toolbar}}

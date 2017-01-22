@@ -1,16 +1,21 @@
-{{#paper-content flex=true scroll-y=true layout-padding=true}}
+{{#paper-content class="chat-room" flex=true scroll-y=true layout-padding=true}}
     {{#doc-content}}
         {{outlet}}
     {{/doc-content}}
     <div class="card-action">
         {{!-- New message field --}}
-        {{paper-input
-                value=model.newMessage
-                onChange=(action (mut model.newMessage))
-                classNames="new-message-field"}}
-        <button class="btn-floating btn-large z-depth-0 send-button right"
-                onclick={{route-action 'sendMessage'}}>
-            <i class="material-icons">send</i>
-        </button>
+
+        {{#paper-form as |form|}}
+            <form {{action (route-action "sendMessage") on="submit"}}>
+                <div class="layout-row">
+                    {{paper-input class="text-area" label="Message" onenter=(route-action 'sendMessage')
+                                  value=model.newMessage onChange=(action (mut model.newMessage))}}
+
+                    {{#form.submit-button type="submit" raised=true primary=true}}
+                        {{paper-icon "send"}}
+                    {{/form.submit-button}}
+                </div>
+            </form>
+        {{/paper-form}}
     </div>
 {{/paper-content}}

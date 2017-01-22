@@ -1,12 +1,13 @@
 {{#user-info as |u|}}
-
+    <div class="chat">
     {{#each model as |message|}}
-        <div class="message {{if (eq u.id message.author.id) "them" "me"}}">
-            <img class="avatar" src={{message.author.gravatar}}>
-            <div class="body">
-                {{message.body}}
-                <div class="timestamp">{{moment-from-now message.insertedAt}}</div>
+        <div class="message {{if (eq u.id message.author.id) 'me'}}">
+            <img src="{{message.author.gravatar}}" />
+            <div>
+                <p>{{message.body}} </p>
             </div>
         </div>
     {{/each}}
+    </div>
 {{/user-info}}
+

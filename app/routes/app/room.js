@@ -1,12 +1,10 @@
 import Ember from "ember";
 
-const {inject, RSVP: {hash}} = Ember;
+const {inject, RSVP: {hash}, $} = Ember;
 
 export default Ember.Route.extend({
   flashMessages: inject.service(),
   phoenixSocket: inject.service(),
-
-  roomSocket: null,
 
   actions: {
     sendMessage() {
@@ -19,9 +17,14 @@ export default Ember.Route.extend({
 
       messageRecord.save().then(() => {
         this.set('currentModel.newMessage', '');
+        this._scrollBottom();
       }).catch(() => {
         this.get('flashMessages').danger('problem posting message');
       });
+    },
+
+    scrollBottom(){
+      this._scrollBottom();
     }
   },
   model() {
@@ -31,23 +34,24 @@ export default Ember.Route.extend({
     });
   },
 
-  afterModel(model, transition){
+  _scrollBottom(){
+    $('.chat-room').first().animate({ scrollTop: $('.chat').first().height() }, 250);
+  },
+
+  afterModel(model){
     this._super(...arguments);
 
     // setup socket
-
     const socketService = this.get('phoenixSocket');
-    const session = this.get('session');
 
     let room = socketService.joinChannel(`room:${model.room.get('name')}`, {}, (msg) => {
-      console.log(msg)
+      console.log(msg);
     });
-
-    this.set("roomSocket", room);
 
     room.on("new:msg", payload => {
       const msg = this.store.push(payload);
       this.get('currentModel.room.messages').addObject(msg);
+      this._scrollBottom();
     });
   }
 });
