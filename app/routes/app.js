@@ -3,6 +3,7 @@ import fetch from "ember-network/fetch";
 import config from "../config/environment";
 
 const {Route, inject} = Ember;
+const {DS: {protocol, host}} = config;
 
 export default Route.extend({
   session: inject.service(),
@@ -27,7 +28,8 @@ export default Route.extend({
         // setup socket
         const socketService = this.get('phoenixSocket');
         const session = this.get('session');
-        socketService.connect(`ws://${config.DS.host}/socket`, {params: {guardian_token: session.get('data.authenticated.access_token')}});
+        const wsProtocol = protocol === 'http' ? 'ws' : 'wss';
+        socketService.connect(`${wsProtocol}://${host}/socket`, {params: {guardian_token: session.get('data.authenticated.access_token')}});
       });
     });
   }
