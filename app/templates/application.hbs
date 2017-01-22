@@ -18,6 +18,7 @@
                 {{/paper-list}}
             {{else}}
                 {{#paper-list}}
+                    {{#menu-item active=false onClick=(transition-to "auth.register")}}Register{{/menu-item}}
                     {{#menu-item active=false onClick=(transition-to "auth.login")}}Login{{/menu-item}}
                 {{/paper-list}}
             {{/if}}

@@ -10,6 +10,10 @@
         </h2>
         <span class="flex"></span>
 
+        {{#paper-button class="hide show-gt-sm" onClick=(transition-to "auth.register")}}
+            Register
+        {{/paper-button}}
+
         {{#paper-button class="hide show-gt-sm" onClick=(transition-to "index")}}
             Home
         {{/paper-button}}
