@@ -11,7 +11,11 @@ Router.map(function() {
     this.route('login');
     this.route('register');
   });
-  this.route('users');
+  this.route('users', function() {
+    this.route('detail', {
+      path: '/:user_id'
+    });
+  });
 
   this.route('app', function() {
     this.route('room', {

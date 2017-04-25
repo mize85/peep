@@ -1,0 +1,12 @@
+<ul>
+    {{#each model as |user|}}
+        <li>
+            {{#link-to 'users.detail' user.id}}
+                {{#if user.avatarUrl}}
+                    <img src="{{user.avatarUrl}}" width="50" height="50">
+                {{/if}}
+                 {{user.email}}
+            {{/link-to}}
+        </li>
+    {{/each}}
+</ul>
