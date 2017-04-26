@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-const {inject: {service}, RSVP: {hash}, $} = Ember;
+const {inject: {service}, RSVP: {hash}, $, run} = Ember;
 
 export default Ember.Route.extend({
   flashMessages: service(),
@@ -37,11 +37,15 @@ export default Ember.Route.extend({
   },
 
   _scrollBottom(){
-    $('.chat-room').first().animate({ scrollTop: $('.chat').first().height() }, 250);
+    $('.app--room').first().animate({ scrollTop: $('.app--room').first()[0].scrollHeight }, 250);
   },
 
   afterModel(model){
     this._super(...arguments);
+
+    run.scheduleOnce('afterRender', () => {
+      run.later(this, this._scrollBottom, 200);
+    });
 
     // setup socket
     const socketService = this.get('phoenixSocket');
