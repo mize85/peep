@@ -5,24 +5,30 @@ const {inject: {service}, RSVP: {hash}, $, run} = Ember;
 export default Ember.Route.extend({
   flashMessages: service('notification-messages'),
   phoenixSocket: service(),
+  ajax: service(),
 
   actions: {
     sendMessage() {
       const msg = this.get('currentModel.newMessage');
 
-      let messageRecord = this.store.createRecord('message', {
+      const messageRecord = this.store.createRecord('message', {
         body: msg,
         room: this.get('currentModel.room')
       });
 
-      messageRecord.save().then(() => {
+      const serialized = messageRecord.serialize();
+
+      this.get('ajax').request(`/messages`, {
+        method: 'POST',
+        data: serialized
+      }).then(() => {
         this.set('currentModel.newMessage', '');
         this._scrollBottom();
       }).catch(() => {
-        this.store.unloadRecord(messageRecord);
         this.get('flashMessages').error('problem posting message');
+      }).finally(() => {
+        messageRecord.unloadRecord();
       });
-
     },
 
     scrollBottom(){
@@ -55,11 +61,8 @@ export default Ember.Route.extend({
     });
 
     room.on("new:msg", payload => {
-
-      if(!this.store.peekRecord('message', payload.data.id)){
-        const msg = this.store.push(payload);
-        this.get('currentModel.room.messages').addObject(msg);
-      }
+      const msg = this.store.push(payload);
+      this.get('currentModel.room.messages').addObject(msg);
       this._scrollBottom();
     });
   }
