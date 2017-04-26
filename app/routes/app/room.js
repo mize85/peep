@@ -3,7 +3,7 @@ import Ember from "ember";
 const {inject: {service}, RSVP: {hash}, $, run} = Ember;
 
 export default Ember.Route.extend({
-  flashMessages: service(),
+  flashMessages: service('notification-messages'),
   phoenixSocket: service(),
 
   actions: {
@@ -20,7 +20,7 @@ export default Ember.Route.extend({
         this._scrollBottom();
       }).catch(() => {
         this.store.unloadRecord(messageRecord);
-        this.get('flashMessages').danger('problem posting message');
+        this.get('flashMessages').error('problem posting message');
       });
 
     },

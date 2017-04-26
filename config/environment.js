@@ -17,6 +17,10 @@ module.exports = function (environment) {
       }
     },
 
+    'ember-cli-notifications': {
+      includeFontAwesome: true
+    },
+
     'ember-simple-auth': {
       authenticationRoute: 'auth.login',
       routeIfAlreadyAuthenticated: 'app.index',

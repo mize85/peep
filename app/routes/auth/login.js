@@ -1,12 +1,12 @@
 import Ember from "ember";
 
-const {Route, inject} = Ember;
+const {Route, inject: {service}} = Ember;
 
 
 export default Route.extend({
 
-  session: inject.service(),
-  flashMessages: inject.service(),
+  session: service(),
+  flashMessages: service('notification-messages'),
 
   actions: {
     doLogin() {
@@ -26,15 +26,11 @@ export default Route.extend({
 
         // Check if any errors have a 401 code
         if (errors.mapBy('code').indexOf(401) >= 0) {
-
           // Unauthorized
-          flashMessages.danger('There was a problem with your username or password, please try again');
-
+          flashMessages.error('There was a problem with your username or password, please try again');
         } else {
-
           // All other API errors
-          flashMessages.danger('Server Error');
-
+          flashMessages.error('Server Error');
         }
       });
     }

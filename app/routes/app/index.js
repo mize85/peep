@@ -1,11 +1,11 @@
 
 import Ember from 'ember';
 
-const { RSVP, inject } = Ember;
+const { RSVP, inject: {service} } = Ember;
 
 export default Ember.Route.extend({
 
-  flashMessages: inject.service(),
+  flashMessages: service('notification-messages'),
 
   actions: {
     /* Create a new room */
@@ -27,7 +27,7 @@ export default Ember.Route.extend({
         // Pass any error messages (i.e., server-side validation) into the UI
         this.set('currentModel.newRoom.errors', (err.errors || []).mapBy('detail'));
         // Notification of failure!
-        this.get('flashMessages').danger(`Problem creating room: ${data.name}`);
+        this.get('flashMessages').error(`Problem creating room: ${data.name}`);
       });
     },
 
@@ -37,7 +37,7 @@ export default Ember.Route.extend({
         room.destroyRecord().then(() => { // Successful destruction
           this.get('flashMessages').success(`Deleted room: ${room.get('name')}`);
         }).catch(() => { // Unsuccessful destruction
-          this.get('flashMessages').danger(`Problem deleting room: ${room.get('name')}`);
+          this.get('flashMessages').error(`Problem deleting room: ${room.get('name')}`);
         });
       }
     }

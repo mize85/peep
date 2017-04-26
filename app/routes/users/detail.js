@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
-const {inject} = Ember;
+const {inject: {service}} = Ember;
 
 export default Ember.Route.extend({
 
-  flashMessages: inject.service(),
+  flashMessages: service('notification-messages'),
 
   model({user_id}){
     return this.store.find('user', user_id);
@@ -25,7 +25,7 @@ export default Ember.Route.extend({
         }).catch((response) => {
 
         const {errors} = response;
-          flashMessages.danger(errors);
+          flashMessages.error(errors);
 
       });
 

@@ -28,9 +28,7 @@
     <div class="flex layout-column" tabindex="-1" role="main">
         {{page-toolbar pageTitle=currentRouteName}}
         {{outlet}}
-        {{#each flashMessages.queue as |flash|}}
-            {{flash-message flash=flash}}
-        {{/each}}
+        {{notification-container}}
     </div>
 {{/paper-sidenav-container}}
 

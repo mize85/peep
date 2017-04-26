@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
 const {
-  Controller, inject
+  Controller, inject: {service}
 } = Ember;
 
 export default Controller.extend({
-  session: inject.service(),
-  flashMessages: inject.service()
+  session: service(),
+  flashMessages: service('notification-messages')
 });

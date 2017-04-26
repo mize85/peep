@@ -2,6 +2,7 @@
   "name": "peep",
   "dependencies": {
     "hammer.js": "^2.0.8",
-    "matchMedia": "0.2.0"
+    "matchMedia": "0.2.0",
+    "font-awesome": "^4.7.0"
   }
 }

@@ -2,12 +2,12 @@ import Ember from "ember";
 import fetch from "ember-network/fetch";
 import config from "../config/environment";
 
-const {Route, inject} = Ember;
+const {Route, inject: {service}} = Ember;
 const {DS: {protocol, host, namespace}} = config;
 
 export default Route.extend({
-  session: inject.service(),
-  phoenixSocket: inject.service(),
+  session: service(),
+  phoenixSocket: service(),
 
   beforeModel() {
     if (!this.get('session').get('isAuthenticated')) {

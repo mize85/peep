@@ -1,10 +1,10 @@
 import Ember from "ember";
 
-const {Route, inject} = Ember;
+const {Route, inject: {service}} = Ember;
 
 export default Route.extend({
 
-  flashMessages: inject.service(),
+  flashMessages: service('notification-messages'),
 
   actions: {
     doRegister() {
@@ -14,7 +14,6 @@ export default Route.extend({
         .then(() => {
           this.transitionTo('auth.login');
           flashMessages.success('Registered sucessfully!');
-
         }).catch((response) => {
 
         const {errors} = response;
@@ -24,18 +23,14 @@ export default Route.extend({
 
           // Unauthorized
           flashMessages
-            .danger('There was a problem with your username or password, please try again');
-
+            .error('There was a problem with your username or password, please try again');
         } else {
-
           // All other API errors
-          flashMessages.danger('Server Error');
-
+          flashMessages.error('Server Error');
         }
       });
     }
   },
-
 
   model() {
     return this.store.createRecord('user');
