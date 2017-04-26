@@ -10,9 +10,6 @@ export default JSONAPIAdapter.extend(DataAdapterMixin, {
   coalesceFindRequests: true,
 
   urlForCreateRecord(modelName/*, snapshot*/) {
-
-    console.log('HEY');
-
     switch(modelName) {
       case 'user':
       case 'users':

@@ -1,10 +1,10 @@
 import Ember from "ember";
 
-const {inject, RSVP: {hash}, $} = Ember;
+const {inject: {service}, RSVP: {hash}, $} = Ember;
 
 export default Ember.Route.extend({
-  flashMessages: inject.service(),
-  phoenixSocket: inject.service(),
+  flashMessages: service(),
+  phoenixSocket: service(),
 
   actions: {
     sendMessage() {
@@ -19,8 +19,10 @@ export default Ember.Route.extend({
         this.set('currentModel.newMessage', '');
         this._scrollBottom();
       }).catch(() => {
+        this.store.unloadRecord(messageRecord);
         this.get('flashMessages').danger('problem posting message');
       });
+
     },
 
     scrollBottom(){
@@ -49,8 +51,11 @@ export default Ember.Route.extend({
     });
 
     room.on("new:msg", payload => {
-      const msg = this.store.push(payload);
-      this.get('currentModel.room.messages').addObject(msg);
+
+      if(!this.store.peekRecord('message', payload.data.id)){
+        const msg = this.store.push(payload);
+        this.get('currentModel.room.messages').addObject(msg);
+      }
       this._scrollBottom();
     });
   }
