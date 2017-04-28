@@ -1,10 +1,8 @@
-import Ember from 'ember';
+import Ember from "ember";
 
-const {inject: {service}} = Ember;
+const {Route} = Ember;
 
-export default Ember.Route.extend({
-
-  flashMessages: service('notification-messages'),
+export default Route.extend({
 
   model({user_id}){
     return this.store.find('user', user_id);
@@ -14,7 +12,6 @@ export default Ember.Route.extend({
     save(){
       const flashMessages = this.get('flashMessages');
       const file = document.getElementById('file-field').files[0];
-
       const model = this.get('currentModel');
       model.set('avatar', file);
 
@@ -25,11 +22,8 @@ export default Ember.Route.extend({
         }).catch((response) => {
 
         const {errors} = response;
-          flashMessages.error(errors);
-
+        flashMessages.error(errors);
       });
-
-
     }
   }
 });

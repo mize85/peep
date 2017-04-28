@@ -5,6 +5,5 @@ const {
 } = Ember;
 
 export default Controller.extend({
-  session: service(),
-  flashMessages: service('notification-messages')
+  session: service()
 });

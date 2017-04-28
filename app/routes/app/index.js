@@ -1,11 +1,10 @@
 
 import Ember from 'ember';
 
-const { RSVP, inject: {service}, Route } = Ember;
+const { RSVP, Route } = Ember;
 
 export default Route.extend({
 
-  flashMessages: service('notification-messages'),
 
   actions: {
     /* Create a new room */

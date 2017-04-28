@@ -6,7 +6,6 @@ const {Route, inject: {service}} = Ember;
 export default Route.extend({
 
   session: service(),
-  flashMessages: service('notification-messages'),
 
   actions: {
     doLogin() {

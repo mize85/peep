@@ -5,7 +5,6 @@ const {inject: {service}, RSVP: {hash}, $, run} = Ember;
 
 
 export default Ember.Route.extend({
-  flashMessages: service('notification-messages'),
   phoenixSocket: service(),
   ajax: service(),
 

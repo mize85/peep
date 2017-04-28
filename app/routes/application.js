@@ -5,7 +5,6 @@ const {Route, inject: {service}} = Ember;
 
 export default Route.extend(ApplicationRouteMixin, {
   session: service(),
-  flashMessages: service('notification-messages'),
 
   init(){
     this._super(...arguments);
