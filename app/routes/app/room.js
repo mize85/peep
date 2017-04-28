@@ -1,11 +1,19 @@
 import Ember from "ember";
+import { task, timeout } from 'ember-concurrency';
 
 const {inject: {service}, RSVP: {hash}, $, run} = Ember;
+
 
 export default Ember.Route.extend({
   flashMessages: service('notification-messages'),
   phoenixSocket: service(),
   ajax: service(),
+
+
+  scrollTask: task(function * () {
+    yield timeout(300);
+    this._scrollBottom();
+  }).restartable(),
 
   actions: {
     sendMessage() {
@@ -23,7 +31,7 @@ export default Ember.Route.extend({
         data: serialized
       }).then(() => {
         this.set('currentModel.newMessage', '');
-        this._scrollBottom();
+        this.get('scrollTask').perform();
       }).catch(() => {
         this.get('flashMessages').error('problem posting message');
       }).finally(() => {
@@ -32,7 +40,7 @@ export default Ember.Route.extend({
     },
 
     scrollBottom(){
-      this._scrollBottom();
+      this.get('scrollTask').perform();
     }
   },
   model() {
@@ -50,20 +58,22 @@ export default Ember.Route.extend({
     this._super(...arguments);
 
     run.scheduleOnce('afterRender', () => {
-      run.later(this, this._scrollBottom, 200);
+      run.later(this, () => {
+        this.get('scrollTask').perform();
+      }, 200);
     });
 
     // setup socket
     const socketService = this.get('phoenixSocket');
 
     let room = socketService.joinChannel(`room:${model.room.get('name')}`, {}, (msg) => {
-      console.log(msg);
+      this.get('flashMessages').info(msg);
     });
 
     room.on("new:msg", payload => {
       const msg = this.store.push(payload);
       this.get('currentModel.room.messages').addObject(msg);
-      this._scrollBottom();
+      this.get('scrollTask').perform();
     });
   }
 });

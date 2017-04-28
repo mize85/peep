@@ -2,13 +2,55 @@
   {{#doc-content}}
 
 
-    {{model.email}}
+    {{#paper-card as |card|}}
+      {{#card.header as |header|}}
+        {{#header.avatar}}
+          <img src="{{model.thumbUrl}}" width="150" height="150"/>
+        {{/header.avatar}}
+        {{#header.text as |text|}}
+          {{#text.title}}{{model.email}}{{/text.title}}
+          {{#text.subhead}}{{model.firstName}} {{model.lastName}}{{/text.subhead}}
+        {{/header.text}}
+        {{#paper-button raised=true onClick=(route-action "save")}}Save{{/paper-button}}
+      {{/card.header}}
 
-    <p>{{input type='file' id='file-field'}}</p>
 
-    {{#paper-button raised=true onClick=(route-action "save")}}Save{{/paper-button}}
+      {{#card.content}}
+        <div class="layout">
+          {{paper-input
+            label="E-Mail"
+            type="email"
+            value=model.email
+            onChange=(action (mut model.email))
+            errors=model.errors.email.messages
+          }}
+        </div>
+        <div class="layout layout-row layout-xs-column">
+          {{paper-input
+            label="Firstname"
+            value=model.firstName
+            onChange=(action (mut model.firstName))
+            errors=model.errors.firstName.messages
+          }}
+          {{paper-input
+            label="Lastname"
+            value=model.lastName
+            onChange=(action (mut model.lastName))
+            errors=model.errors.lastName.messages
+          }}
+        </div>
 
-    <img src="{{model.avatarUrl}}" id="preview-image" class="small-image"/>
+        <div class="layout">
 
+        {{input type='file' id='file-field'}}
+
+        </div>
+
+        <div class="layout">
+        <img src="{{model.avatarUrl}}" id="preview-image" class="small-image"/>
+        </div>
+
+      {{/card.content}}
+    {{/paper-card}}
   {{/doc-content}}
 {{/paper-content}}

@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
+import Ember from "ember";
+import ApplicationRouteMixin from "ember-simple-auth/mixins/application-route-mixin";
 
 const {Route, inject: {service}} = Ember;
 
@@ -9,8 +9,10 @@ export default Route.extend(ApplicationRouteMixin, {
 
   init(){
     this._super(...arguments);
-    console.log('setting auto clear');
-    this.get('flashMessages').setDefaultAutoClear(true);
+    const fM = this.get('flashMessages');
+    if (fM) {
+      fM.setDefaultAutoClear(true);
+    }
   },
 
   actions: {
