@@ -6,7 +6,7 @@
           {{#paper-card as |card|}}
             {{#card.header as |header|}}
               {{#header.avatar}}
-                <img src="{{user.thumbUrl}}" width="150" height="150"/>
+                <img src="{{full-url user.thumbUrl}}" width="150" height="150"/>
               {{/header.avatar}}
               {{#header.text as |text|}}
                 {{#text.title}}{{user.email}}{{/text.title}}
