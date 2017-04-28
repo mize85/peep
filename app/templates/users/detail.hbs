@@ -1,10 +1,14 @@
-<h1>hi</h1>
+{{#paper-content class="app--user--detail" flex=true scroll-y=true layout-padding=true}}
+  {{#doc-content}}
 
 
-{{model.email}}
+    {{model.email}}
 
-<p>{{input type='file' id='file-field'}}</p>
+    <p>{{input type='file' id='file-field'}}</p>
 
-{{#paper-button raised=true onClick=(route-action "save")}}Save{{/paper-button}}
+    {{#paper-button raised=true onClick=(route-action "save")}}Save{{/paper-button}}
 
- <img src="{{model.avatarUrl}}" id="preview-image" class="small-image" />
+    <img src="{{model.avatarUrl}}" id="preview-image" class="small-image"/>
+
+  {{/doc-content}}
+{{/paper-content}}

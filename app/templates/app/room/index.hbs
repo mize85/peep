@@ -2,7 +2,7 @@
     <div class="chat">
     {{#each model as |message|}}
         <div class="message {{if (eq u.id message.author.id) 'me'}}">
-            <img src="{{message.author.avatarUrl}}" />
+            <img src="{{message.author.thumbUrl}}" />
             <div>
                 <p>{{message.body}} </p>
             </div>
